@@ -33,10 +33,11 @@ public class FilterProductByCategoryServlet extends HttpServlet {
         }
         
         //--- Set a default value for URL.
-        String url = ERROR_PAGE;
+        String url = FILTER_PRODUCT_PAGE;
         
         //--- Get the necessary paramters.
         int typeId = Integer.parseInt(request.getParameter("txtTypeId"));
+        
         try {
             ProductDAO dao = new ProductDAO();
             dao.filterProductByCategory(typeId);
@@ -45,10 +46,10 @@ public class FilterProductByCategoryServlet extends HttpServlet {
             CategoryDAO categoryDao = new CategoryDAO();
             categoryDao.loadCategories();
             List<CategoryDTO> categories = categoryDao.getCategories();
+            request.setAttribute("CATEGORY_LIST", categories);
+            
             if(result != null){
                 request.setAttribute("PRODUCT_LIST", result);
-                request.setAttribute("CATEGORY_LIST", categories);
-                url = FILTER_PRODUCT_PAGE;
             }
         } catch (ClassNotFoundException ex) {
             String message = ex.getMessage();

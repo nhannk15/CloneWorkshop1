@@ -7,6 +7,9 @@
             <file>file:/C:/Users/nhann/OneDrive/Documents/NetBeansProjects/CloneWorkshop1/web/WEB-INF/categories.jspf</file>
             <file>file:/C:/Users/nhann/OneDrive/Documents/NetBeansProjects/CloneWorkshop1/src/java/controller/UpdateAccountServlet.java</file>
             <file>file:/C:/Users/nhann/OneDrive/Documents/NetBeansProjects/CloneWorkshop1/src/java/model/CategoryDAO.java</file>
+            <file>file:/C:/Users/nhann/OneDrive/Documents/NetBeansProjects/CloneWorkshop1/src/java/model/AccountDAO.java</file>
+            <file>file:/C:/Users/nhann/OneDrive/Documents/NetBeansProjects/CloneWorkshop1/web/addNewCategory.jsp</file>
+            <file>file:/C:/Users/nhann/OneDrive/Documents/NetBeansProjects/CloneWorkshop1/src/java/controller/AddNewCategoryServlet.java</file>
             <file>file:/C:/Users/nhann/OneDrive/Documents/NetBeansProjects/CloneWorkshop1/src/java/controller/DispatchServlet.java</file>
             <file>file:/C:/Users/nhann/OneDrive/Documents/NetBeansProjects/CloneWorkshop1/web/updateCategory.jsp</file>
         </group>
