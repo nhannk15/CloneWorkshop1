@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
@@ -53,9 +54,9 @@ public class UpdateAccountServlet extends HttpServlet {
             int result = dao.update(dto);
             if(result > 0){
                 url = "DispatchServlet"
-                        + "?btnAction=List All Accounts";
+                        + "?btnAction=SearchAccount"
+                        + "&txtSearchValue=" + URLEncoder.encode(lastName + " " + firstName, "UTF-8");
             }
-            log(url);
         } catch (ClassNotFoundException ex) {
             String message = ex.getMessage();
             log("DeleteAccountServlt _ ClassNotFound " + message);

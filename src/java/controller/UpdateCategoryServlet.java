@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,9 +42,11 @@ public class UpdateCategoryServlet extends HttpServlet {
             CategoryDTO dto = new CategoryDTO(typeId, categoryName, memo);
             CategoryDAO dao = new CategoryDAO();
             int result = dao.update(dto);
+            System.out.println(result);
             if(result > 0){
                 url = "DispatchServlet"
-                        + "?btnAction=List All Accounts";
+                        + "?btnAction=SearchCategory"
+                        + "&txtSearchValue=" + URLEncoder.encode(dto.getCategoryName(), "UTF-8");
             }
         } catch (ClassNotFoundException ex) {
             String message = ex.getMessage();

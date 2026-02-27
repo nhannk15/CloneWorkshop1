@@ -146,8 +146,37 @@ public class CategoryDAO implements Workable<CategoryDTO> {
     }
 
     @Override
-    public int update(CategoryDTO g) throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int update(CategoryDTO dto) throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+
+        try {
+            //--- Step 1. Make Connection to database.
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                //--- Step 2. Write SQL String.
+                String sqlString = "UPDATE categories SET "
+                        + "categoryName = ?, "
+                        + "memo = ? "
+                        + "WHERE typeId = ?";
+                //--- Step 3. Create PreparedStatement and set SQL.
+                stm = con.prepareStatement(sqlString);
+                stm.setString(1, dto.getCategoryName());
+                stm.setString(2, dto.getMemo());
+                stm.setInt(3, dto.getTypeId());
+                //--- Step 4. Execute Update.
+                int numOfRow = stm.executeUpdate();
+                return numOfRow;
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return 0;
     }
 
     @Override
