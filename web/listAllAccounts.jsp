@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
+        <%@include file="WEB-INF/sessionCheck.jspf" %>
         <div class="section-two">
             <%@include file="WEB-INF/menu.jspf" %>
             <%@include file="WEB-INF/accounts.jspf" %>         

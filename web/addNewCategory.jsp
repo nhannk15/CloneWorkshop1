@@ -3,7 +3,7 @@
     Created on : Feb 27, 2026, 9:09:32 AM
     Author     : nhann
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -23,6 +23,7 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
+        <%@include file="WEB-INF/sessionCheck.jspf" %>
         <div class="section-two">
             <%@include file="WEB-INF/menu.jspf" %>
             <div class="container">

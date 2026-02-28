@@ -22,11 +22,6 @@ public class ListAllCategoriesServlet extends HttpServlet {
         
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession checkSession = request.getSession(false);
-        if (checkSession == null || checkSession.getAttribute("USER_INFORMATION") == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
         //--- Set a default value for URL.
         String url = LIST_ALL_CATEGORIES_PAGE;
         //--- Get the neccessary parameters.

@@ -36,7 +36,6 @@ public class DeleteCategoryServlet extends HttpServlet {
         //--- Get the neccessary paramters.
         String typeId = request.getParameter("typeId");
         String lastSearchValue = request.getParameter("lastSearchValue");
-        System.out.println(lastSearchValue);
         
         try {
             //--- Call DAO.
@@ -64,8 +63,6 @@ public class DeleteCategoryServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             response.sendRedirect(url);
         }
-        
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

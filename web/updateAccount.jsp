@@ -3,7 +3,7 @@
     Created on : Feb 26, 2026, 8:31:03 AM
     Author     : nhann
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,6 +24,7 @@
 
     </head>
     <body>       
+        <%@include file="WEB-INF/sessionCheck.jspf" %>
         <div class="section-two">
             <%@include file="WEB-INF/menu.jspf" %>
             <c:set var="dto" value="${requestScope.ACCOUNT_INFO}" />

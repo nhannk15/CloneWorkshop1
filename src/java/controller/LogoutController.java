@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 public class LogoutController extends HttpServlet {
     
-    private final String LOGIN_PAGE = "login.jsp";
+    private final String HOME_PAGE = "index.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -26,7 +26,7 @@ public class LogoutController extends HttpServlet {
         }
         
         //--- Set the defaul value for URL.
-        String url = LOGIN_PAGE;
+        String url = HOME_PAGE;
         
         //--- Delete the Cookies.
         Cookie[] cookies = request.getCookies();

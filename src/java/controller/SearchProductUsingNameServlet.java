@@ -15,38 +15,42 @@ import model.CategoryDTO;
 import model.ProductDAO;
 import model.ProductDTO;
 
-public class ListAllProductsServlet extends HttpServlet {
+public class SearchProductUsingNameServlet extends HttpServlet {
 
-    private final String LIST_ALL_PRODUCTS_PAGE = "listAllProducts.jsp";
+    private final String SEARCH_PRODUCT_PAGE = "searchProducts.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
 
-        //--- Set a default value for URL.
-        String url = LIST_ALL_PRODUCTS_PAGE;
+        //--- Set a default value for url.
+        String url = SEARCH_PRODUCT_PAGE;
+
+        //--- Get the necessary paramters.
+        String searchValue = request.getParameter("txtSearchValue");
 
         try {
-            ProductDAO dao = new ProductDAO();
-            dao.listAll();
-            List<ProductDTO> result = dao.getProducts();
+            if (!searchValue.trim().isEmpty()) {
+                ProductDAO dao = new ProductDAO();
+                dao.searchProduct(searchValue);
+                List<ProductDTO> result = dao.getProducts();
 
-            CategoryDAO categoryDao = new CategoryDAO();
-            categoryDao.loadCategories();
-            List<CategoryDTO> categories = categoryDao.getCategories();
-            request.setAttribute("CATEGORY_LIST", categories);
-            if (result != null) {
-                request.setAttribute("PRODUCT_LIST", result);
-
+                CategoryDAO categoryDao = new CategoryDAO();
+                categoryDao.loadCategories();
+                List<CategoryDTO> categories = categoryDao.getCategories();
+                request.setAttribute("CATEGORY_LIST", categories);
+                System.out.println(result);
+                if (result != null) {
+                    request.setAttribute("PRODUCT_LIST", result);
+                }
             }
         } catch (ClassNotFoundException ex) {
             String message = ex.getMessage();
-            log("ListAllProductsServlet _ ClassNotFound " + message);
+            log("SearchAccountServlet _ ClassNotFound " + message);
         } catch (SQLException ex) {
             String message = ex.getMessage();
-            log("ListAllProductsServlet _ SQL " + message);
+            log("SearchAccountServlet _ SQL " + message);
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);

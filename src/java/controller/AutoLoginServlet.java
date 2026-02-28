@@ -14,14 +14,13 @@ import model.AccountDTO;
 
 public class AutoLoginServlet extends HttpServlet {
 
-    private final String LOGIN_PAGE = "login.jsp";
-    private final String HOME_PAGE = "homepage.jsp";
+    private final String HOME_PAGE = "index.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String url = LOGIN_PAGE;
+        String url = HOME_PAGE;
         try {
             Cookie[] cookies = request.getCookies();
             if (cookies != null) {
@@ -33,8 +32,6 @@ public class AutoLoginServlet extends HttpServlet {
                         String[] parts = cookie.getValue().split(":");
                         account = parts[0];
                         password = parts[1];
-                        System.out.println(account);
-                        System.out.println(password);
                         break;
                     }
                 }
@@ -43,7 +40,6 @@ public class AutoLoginServlet extends HttpServlet {
                 if (dto != null) {
                     HttpSession session = request.getSession();
                     session.setAttribute("USER_INFORMATION", dto);
-                    url = HOME_PAGE;
                 }
             } else {
                 System.out.println("Cookie didn't existed");

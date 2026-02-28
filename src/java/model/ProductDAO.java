@@ -79,7 +79,71 @@ public class ProductDAO implements Workable<ProductDTO> {
             }
         }
     }
+    
+    public void searchProduct(String searchValue) 
+            throws ClassNotFoundException, SQLException { 
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
 
+        try {
+            //--- Step 1: Make Connection to database.
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                //--- Step 2: Write SQL String.
+                String sqlString = "SELECT "
+                        + "productId, "
+                        + "productName, "
+                        + "productImage, "
+                        + "brief, "
+                        + "postedDate, "
+                        + "typeId, "
+                        + "account, "
+                        + "unit, "
+                        + "price, "
+                        + "discount "
+                        + "FROM products "
+                        + "WHERE productName LIKE ?";
+                        
+                //--- Step 3: Create PrepareStatement.
+                stm = con.prepareStatement(sqlString);
+                stm.setString(1, "%" + searchValue + "%");
+                //--- Step 4: Execute Query.
+                rs = stm.executeQuery();
+                //--- Step 5: Process.
+                while (rs.next()) {
+                    String productId = rs.getString("productId");
+                    String productName = rs.getString("productName");
+                    String productImage = rs.getString("productImage");
+                    String brief = rs.getString("brief");
+                    Timestamp postedDate = rs.getTimestamp("postedDate");
+                    int typeId = rs.getInt("typeId");
+                    String account = rs.getString("account");
+                    String unit = rs.getString("unit");
+                    int price = rs.getInt("price");
+                    int discount = rs.getInt("discount");
+                    ProductDTO dto = new ProductDTO(productId, productName,
+                            productImage, brief, postedDate, typeId, account,
+                            unit, price, discount);
+                    if (products == null) {
+                        products = new ArrayList<>();
+                    }
+                    products.add(dto);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+            
     @Override
     public int insert(ProductDTO g) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -152,8 +216,33 @@ public class ProductDAO implements Workable<ProductDTO> {
     }
 
     @Override
-    public int delete(String id) throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int delete(String productId) throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            //--- Step 1. Make Connection to database.
+            con = DBUtils.makeConnection();
+            if (con != null) {
+                //--- Step 2. Write SQL String.
+                String sqlString = "DELETE FROM products "
+                        + "WHERE productId = ?";
+                //--- Step 3. Create PreparedStatement and set SQL.
+                stm = con.prepareStatement(sqlString);
+                stm.setString(1, productId);
+                
+                //--- Step 4. Execute Update.
+                int numOfRow1 = stm.executeUpdate();
+                return numOfRow1;
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return 0;
     }
 
     @Override

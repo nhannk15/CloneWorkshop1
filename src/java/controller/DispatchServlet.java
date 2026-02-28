@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 public class DispatchServlet extends HttpServlet {
     
     //--- Accounts Controller.   
-    private final String LOGIN_PAGE = "login.jsp";
+    private final String HOME_PAGE = "index.jsp";
     private final String LOGIN_CONTROLLER = "LoginServlet";
     private final String SEARCH_ACCOUNT_CONTROLLER = "SearchAccountServlet";
     private final String DELETE_ACCOUNT_CONTROLLER = "DeleteAccountServlet";
@@ -35,6 +35,7 @@ public class DispatchServlet extends HttpServlet {
     private final String LIST_ALL_PRODUCTS_CONTROLLER = "ListAllProductsServlet";  
     private final String FILTER_PRODUCT_BY_CATEGORY_CONTROLLER = "FilterProductByCategoryServlet";
     private final String SEARCH_PRODUCT_USING_NAME = "SearchProductUsingNameServlet";
+    private final String DELETE_PRODUCT_CONTROLLER = "DeleteProductServlet";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -43,7 +44,7 @@ public class DispatchServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         //--- Set a defaul value for URL.
-        String url = LOGIN_PAGE;
+        String url = HOME_PAGE;
         
         //--- Get the necessary parameters.
         String btnAction = request.getParameter("btnAction");
@@ -87,6 +88,8 @@ public class DispatchServlet extends HttpServlet {
                 url = LOAD_UPDATE_CATEGORY_CONTROLLER;
             } else if (btnAction.equals("UpdateCategory")) {
                 url = UPDATE_CATEGORY_CONTROLLER;
+            } else if (btnAction.equals("DeleteProduct")) {
+                url = DELETE_PRODUCT_CONTROLLER;
             }
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);

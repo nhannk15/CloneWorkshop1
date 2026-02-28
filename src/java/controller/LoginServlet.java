@@ -16,7 +16,7 @@ import model.AccountDTO;
 public class LoginServlet extends HttpServlet {
 
     private final String LOGIN_PAGE = "login.jsp";
-    private final String HOME_PAGE = "homepage.jsp";
+    private final String HOME_PAGE = "index.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
         //--- Get the necessary parameters.
         String username = request.getParameter("txtUsername");
         String password = request.getParameter("txtPassword");
-        
+        String remember = request.getParameter("txtRemember");
         try {
             //--- Call DAO.
             AccountDAO dao = new AccountDAO();
@@ -39,14 +39,18 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("USER_INFORMATION", dto);
                 
-                //--- Create Cookie to Client side for AUTO_LOGIN_SERVLET.
-                Cookie cookie = new Cookie("AUTO_LOGIN", 
-                        dto.getAccount() + ":" + dto.getPass());
-                cookie.setMaxAge(60 * 60 * 24 * 30); //--- Set cookie for 1 month
-                response.addCookie(cookie);
+                if(remember != null){
+                    //--- Create Cookie to Client side for AUTO_LOGIN_SERVLET.
+                    Cookie cookie = new Cookie("AUTO_LOGIN",
+                            dto.getAccount() + ":" + dto.getPass());
+                    cookie.setMaxAge(60 * 60 * 24 * 30); //--- Set cookie for 1 month
+                    response.addCookie(cookie);
+                }
                 
                 //--- Set URL.
                 url = HOME_PAGE;
+            } else {
+                request.setAttribute("NOTIFICATION", "WRONG USERNAME OR PASSWORD\nPLEASE TRY AGAIN");
             }
         } catch (ClassNotFoundException ex) {
             String message = ex.getMessage();

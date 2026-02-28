@@ -1,5 +1,4 @@
 <%-- any content can be specified here e.g.: --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="container">
     <div class="category-box">
@@ -7,10 +6,11 @@
             <div class="form-group">
                 <label for="txtSearchValue">Search value:</label>
                 <input type="search" class="form-control" 
-                       id="email" name="txtSearchValue" required>
+                       id="txtSearchValue" name="txtSearchValue" 
+                       required value="${param.txtSearchValue}">
             </div>
             <button type="submit" class="btn btn-default"
-                    name="btnAction" value="SearchProducts">Submit</button>
+                    name="btnAction" value="SearchProductUsingName">Submit</button>
         </form>
         <br/>
         <br/>
@@ -19,7 +19,7 @@
         </c:if>
         <c:if test="${not empty requestScope.CATEGORY_LIST}">
             <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Categories
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Categories
                     <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                     <c:url var="listAllProductsUrl" value="DispatchServlet">
@@ -44,6 +44,17 @@
             <c:forEach var="dto" items="${result}">
                 <div class="col-sm-4">
                     <div class="product-box">
+                        <c:if test="${sessionScope.USER_INFORMATION.roleInSystem == 1}">
+                            <c:url var="deleteUrl" value="DispatchServlet">
+                                <c:param name="btnAction" value="DeleteProduct"></c:param>
+                                <c:param name="txtProductId" value="${dto.productId}"></c:param>
+                                <c:param name="lastSearchValue" value="${param.txtSearchValue}"></c:param>
+                            </c:url>
+                            <a href="${deleteUrl}" class="DeleteIcon">
+                                x
+                            </a>   
+                        </c:if>
+                                           
                         <img src="${pageContext.request.contextPath}${dto.productImage}" alt=""/>
                         <div class="inner-title">
                             <h3>${dto.productName}</h3>

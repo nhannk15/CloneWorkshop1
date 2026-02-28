@@ -1,0 +1,5 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<c:if test="${empty sessionScope.USER_INFORMATION}">
+    <c:redirect url="login.jsp"></c:redirect>
+</c:if>

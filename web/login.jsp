@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -42,6 +42,10 @@
                     <div class="checkbox">
                         <label><input type="checkbox" name="txtRemember">Remember me</label>
                     </div>
+                    <div style="color:#ff3333; font-weight: bold; font-size: 12px;">
+                       ${requestScope.NOTIFICATION} 
+                    </div>
+                    
                     <button type="submit" class="btn btn-success" 
                             name="btnAction" value="Login">Login</button>
                 </form>

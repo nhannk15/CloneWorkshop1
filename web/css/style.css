@@ -175,3 +175,22 @@ a:active {
     overflow: hidden;
 }
 
+.product-box{
+    position: relative;
+}
+
+.DeleteIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+}
+

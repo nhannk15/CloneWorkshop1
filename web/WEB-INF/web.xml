@@ -72,6 +72,14 @@
         <servlet-name>UpdateCategoryServlet</servlet-name>
         <servlet-class>controller.UpdateCategoryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchProductUsingNameServlet</servlet-name>
+        <servlet-class>controller.SearchProductUsingNameServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <servlet-class>controller.DeleteProductServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DispatchServlet</servlet-name>
         <url-pattern>/DispatchServlet</url-pattern>
@@ -143,6 +151,14 @@
     <servlet-mapping>
         <servlet-name>UpdateCategoryServlet</servlet-name>
         <url-pattern>/UpdateCategoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchProductUsingNameServlet</servlet-name>
+        <url-pattern>/SearchProductUsingNameServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <url-pattern>/DeleteProductServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

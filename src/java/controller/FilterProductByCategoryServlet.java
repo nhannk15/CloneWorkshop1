@@ -25,13 +25,6 @@ public class FilterProductByCategoryServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         
-        //--- Check if User's session exited.
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("USER_INFORMATION") == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
-        
         //--- Set a default value for URL.
         String url = FILTER_PRODUCT_PAGE;
         

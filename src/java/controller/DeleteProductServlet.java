@@ -2,55 +2,67 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.sql.SQLException;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.CategoryDAO;
-import model.CategoryDTO;
 import model.ProductDAO;
-import model.ProductDTO;
 
-public class ListAllProductsServlet extends HttpServlet {
-
-    private final String LIST_ALL_PRODUCTS_PAGE = "listAllProducts.jsp";
-
+public class DeleteProductServlet extends HttpServlet {
+    
+    private final String ERROR_PAGE = "error.html";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
 
+        //--- Check if User's session exited.
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("USER_INFORMATION") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+        
         //--- Set a default value for URL.
-        String url = LIST_ALL_PRODUCTS_PAGE;
-
+        String url = ERROR_PAGE;
+        
+        //--- Get the necessary parameters.
+        String productId = request.getParameter("txtProductId");
+        String lastSearchValue = request.getParameter("lastSearchValue");
+        
         try {
+            //--- Call DAO.
             ProductDAO dao = new ProductDAO();
-            dao.listAll();
-            List<ProductDTO> result = dao.getProducts();
-
-            CategoryDAO categoryDao = new CategoryDAO();
-            categoryDao.loadCategories();
-            List<CategoryDTO> categories = categoryDao.getCategories();
-            request.setAttribute("CATEGORY_LIST", categories);
-            if (result != null) {
-                request.setAttribute("PRODUCT_LIST", result);
-
+            int result = dao.delete(productId);
+            System.out.println(result);
+            if (result > 0) {
+                if (lastSearchValue.isEmpty()) {
+                    url = "DispatchServlet?"
+                            + "btnAction=ListAllProducts";
+                } else {
+                    url = "DispatchServlet?"
+                            + "btnAction=SearchProductUsingName"
+                            + "&txtSearchValue=" 
+                            + URLEncoder.encode(lastSearchValue, "UTF-8");
+                }
             }
         } catch (ClassNotFoundException ex) {
             String message = ex.getMessage();
-            log("ListAllProductsServlet _ ClassNotFound " + message);
+            log("DeleteProductServlet _ ClassNotFound " + message);
         } catch (SQLException ex) {
             String message = ex.getMessage();
-            log("ListAllProductsServlet _ SQL " + message);
+            log("DeleteProductServlet _ SQL " + message);
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            response.sendRedirect(url);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -15,7 +15,9 @@ import model.AccountDAO;
 import model.AccountDTO;
 
 public class AddNewAccountServlet extends HttpServlet {
-
+    
+    private final String ADD_NEW_ACCOUNT_PAGE = "addNewAccount.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -30,7 +32,7 @@ public class AddNewAccountServlet extends HttpServlet {
         }
         
         //--- Set a default value for URL.
-        String url = "addNewAccount.jsp";
+        String url = ADD_NEW_ACCOUNT_PAGE;
         //--- Get the necessary parameters.
         String account = request.getParameter("txtAccount");
         String password = request.getParameter("txtPassword");
