@@ -1,8 +1,9 @@
 <%-- 
-    Document   : addNewAccount
-    Created on : Feb 26, 2026, 7:48:13 PM
+    Document   : register
+    Created on : Feb 28, 2026, 10:21:52 AM
     Author     : nhann
 --%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,17 +24,20 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        <c:if test="${sessionScope.USER_INFORMATION.roleInSystem != 1}">
-            <c:redirect url="index.jsp">
-                <c:param name="NOTIFICATION" value="Only admin can use this function"></c:param>
-            </c:redirect>
-        </c:if>
-        <%@include file="WEB-INF/sessionCheck.jspf" %>
-        <div class="section-two">
-            <%@include file="WEB-INF/menu.jspf" %>
-            <div class="container">
-                <h2>Add a new account</h2>
-                <form action="DispatchServlet" method="POST">
+        <style>
+            body {
+                margin-top: 120px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background-color: #68c9cc;
+            }
+        </style>
+        <div class="section-one">
+            <div class="login-box">
+                <h2 class="title">Register</h2>
+                <form action="DispatchServlet" method="GET">
                     <div class="form-group">
                         <label for="txtAccount">Account: <p style="color:red">${requestScope.DUPLICATE_ACCOUNT}</p></label>
                         <input type="text" class="form-control" value="${requestScope.POST_INFO.account}" 
@@ -42,9 +46,14 @@
                     
                     <div class="form-group">
                         <label for="txtPassword">Password:</label>
-                        <input type="text" class="form-control" 
+                        <input type="password" class="form-control" 
                                id="txtPassword" name="txtPassword" required>
                     </div>
+                    <div class="form-group">
+                        <label for="txtPassword">Confirm Password:</label>
+                        <input type="password" class="form-control" 
+                               id="txtPassword" name="txtConfirm" required>
+                    </div>           
                     <div class="form-group">
                         <label for="txtFirstName">First Name:</label>
                         <input type="text" class="form-control" value="${requestScope.POST_INFO.firstName}"  
@@ -74,25 +83,17 @@
                         <label><input type="radio" name="txtGender"
                                       value="false">Female</label>
                     </div>
-                    <div class="form-group">
-                        <label for="sel1">Role in the system:</label>
-                        <select class="form-control" id="sel1" name="txtRoleInSystem">
-                            <option value="1">Administrator</option>
-                            <option value="2">Normal Manager</option>
-                            <option value="3">Customer</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            Active Account
-                            <input type="checkbox" name="txtActive" 
-                                   value="active" checked>
-                        </label>
-                    </div>
                     <button type="submit" class="btn btn-default"
-                            name="btnAction" value="AddNewAccount">Submit</button>
+                            name="btnAction" value="RegisterAccount">Submit</button>
+                    <a href="login.jsp" class="btn btn-default">Return to Login Page</a>
+                    <div style="color:#ff3333; font-weight: bold; font-size: 12px;">
+                       ${requestScope.NOTIFICATION} 
+                    </div>
+                    <input type="hidden" name="txtActive" value="true">
+                    <input type="hidden" name="txtRoleInSystem" value="3" />
                 </form> 
-            </div>            
+            </div>
         </div>
+    </body>   
     </body>
 </html>

@@ -22,6 +22,7 @@ public class DispatchServlet extends HttpServlet {
     private final String LOAD_UPDATE_ACCOUNT_CONTROLLER = "LoadUpdateAccountServlet";
     private final String AUTO_LOGIN_CONTROLLER = "AutoLoginServlet";
     private final String ADD_NEW_ACCOUNT_CONTROLLER = "AddNewAccountServlet";
+    private final String REGISTER_ACCOUNT_CONTROLLER = "RegisterAccountServlet";
     
     //--- Category Controller.
     private final String LIST_ALL_CATEGORIES = "ListAllCategoriesServlet";
@@ -90,6 +91,8 @@ public class DispatchServlet extends HttpServlet {
                 url = UPDATE_CATEGORY_CONTROLLER;
             } else if (btnAction.equals("DeleteProduct")) {
                 url = DELETE_PRODUCT_CONTROLLER;
+            } else if (btnAction.equals("RegisterAccount")) {
+                url = REGISTER_ACCOUNT_CONTROLLER;
             }
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);

@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
 import java.sql.Date;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
@@ -14,28 +13,22 @@ import javax.servlet.http.HttpSession;
 import model.AccountDAO;
 import model.AccountDTO;
 
-public class AddNewAccountServlet extends HttpServlet {
-    
-    private final String ADD_NEW_ACCOUNT_PAGE = "addNewAccount.jsp";
-    
+public class RegisterAccountServlet extends HttpServlet {
+
+    private final String REGISTER_PAGE = "register.jsp";
+    private final String LOGIN_PAGE = "login.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        
-        //--- Check if User's session exited.
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("USER_INFORMATION") == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
-        
         //--- Set a default value for URL.
-        String url = ADD_NEW_ACCOUNT_PAGE;
-        //--- Get the necessary parameters.        
+        String url = REGISTER_PAGE;
+
+        //--- Get the necessary paramters.
         String account = request.getParameter("txtAccount");
         String password = request.getParameter("txtPassword");
+        String confirm = request.getParameter("txtConfirm");
         String firstName = request.getParameter("txtFirstName");
         String lastName = request.getParameter("txtLastName");
         String phone = request.getParameter("txtPhoneNumber");
@@ -43,34 +36,34 @@ public class AddNewAccountServlet extends HttpServlet {
         boolean gender = Boolean.valueOf(request.getParameter("txtGender"));
         int roleInSystem = Integer.valueOf(request.getParameter("txtRoleInSystem"));
         boolean use = Boolean.valueOf(request.getParameter("txtActive"));
-        AccountDTO dto = new AccountDTO(account, password, lastName, firstName,
-                birthday, gender, phone, use, roleInSystem);
 
         try {
-            //--- Call DAO.
-            AccountDAO dao = new AccountDAO();
-            int result = dao.insert(dto);
-            if (result > 0) {
-                url = "DispatchServlet"
-                        + "?btnAction=SearchAccount"
-                        + "&txtSearchValue="
-                        + URLEncoder.encode(lastName + " " + firstName, "UTF-8");
-                response.sendRedirect(url);
-                return;
+            if (password.equals(confirm)) {
+                AccountDAO dao = new AccountDAO();
+                AccountDTO dto = new AccountDTO(account, password, lastName, firstName,
+                        birthday, gender, phone, use, roleInSystem);
+                int result = dao.insert(dto);
+                if (result > 0) {
+                    url = LOGIN_PAGE;
+                    request.setAttribute("Success", "Register Successfully!");
+                }
+            } else {
+                request.setAttribute("PASSWORD", "Confirm password doesn't match");
+                log(" _ Password not match");
             }
         } catch (ClassNotFoundException ex) {
             String message = ex.getMessage();
-            log("AddNewAccountServlet _ ClassNotFound " + message);
+            log("RegisterAccountServlet _ ClassNotFound " + message);
         } catch (SQLException ex) {
             String message = ex.getMessage();
-            log("AddNewAccountServlet _ SQL " + message);
+            log("RegisterAccountServlet _ ClassNotFound " + message);
             if (message.contains("duplicate")) {
-                request.setAttribute("DUPLICATE_ACCOUNT", "Account Duplicated!");
-                request.setAttribute("POST_INFO", dto);
+                request.setAttribute("DUPLICATE", "Account Duplicated");
             }
+        } finally {
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
-        RequestDispatcher rd = request.getRequestDispatcher(url);
-        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

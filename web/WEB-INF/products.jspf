@@ -44,7 +44,7 @@
             <c:forEach var="dto" items="${result}">
                 <div class="col-sm-4">
                     <div class="product-box">
-                        <c:if test="${sessionScope.USER_INFORMATION.roleInSystem == 1}">
+                        <c:if test="${sessionScope.USER_INFORMATION.roleInSystem == 2}">
                             <c:url var="deleteUrl" value="DispatchServlet">
                                 <c:param name="btnAction" value="DeleteProduct"></c:param>
                                 <c:param name="txtProductId" value="${dto.productId}"></c:param>

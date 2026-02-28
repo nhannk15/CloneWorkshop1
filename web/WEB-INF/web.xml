@@ -80,6 +80,10 @@
         <servlet-name>DeleteProductServlet</servlet-name>
         <servlet-class>controller.DeleteProductServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegisterAccountServlet</servlet-name>
+        <servlet-class>controller.RegisterAccountServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DispatchServlet</servlet-name>
         <url-pattern>/DispatchServlet</url-pattern>
@@ -159,6 +163,10 @@
     <servlet-mapping>
         <servlet-name>DeleteProductServlet</servlet-name>
         <url-pattern>/DeleteProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterAccountServlet</servlet-name>
+        <url-pattern>/RegisterAccountServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -30,22 +30,31 @@
         <div class="section-one">
             <div class="login-box">
                 <h2 class="title">Workshop 1</h2>
+                <div style="color:#00ff00; font-weight: bold; font-size: 12px;">
+                    ${requestScope.Success} 
+                </div>
                 <form action="DispatchServlet" method="POST">
                     <div class="form-group">
-                        <label for="email">Username:</label>
+                        <label for="email">Account: </label>
                         <input type="text" class="form-control" name="txtUsername">
+                    </div>
+                    <div style="color:#ff3333; font-weight: bold; font-size: 12px;">
+                        ${requestScope.DUPLICATE} 
                     </div>
                     <div class="form-group">
                         <label for="pwd">Password:</label>
                         <input type="password" class="form-control" name="txtPassword">
                     </div>
+                    <div style="color:#ff3333; font-weight: bold; font-size: 12px;">
+                        ${requestScope.PASSWORD} 
+                    </div>
                     <div class="checkbox">
                         <label><input type="checkbox" name="txtRemember">Remember me</label>
                     </div>
                     <div style="color:#ff3333; font-weight: bold; font-size: 12px;">
-                       ${requestScope.NOTIFICATION} 
+                        ${requestScope.NOTIFICATION} 
                     </div>
-                    
+
                     <button type="submit" class="btn btn-success" 
                             name="btnAction" value="Login">Login</button>
                 </form>

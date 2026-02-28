@@ -24,6 +24,11 @@
 
     </head>
     <body>       
+        <c:if test="${sessionScope.USER_INFORMATION.roleInSystem != 1}">
+            <c:redirect url="index.jsp">
+                <c:param name="NOTIFICATION" value="Only admin can use this function"></c:param>
+            </c:redirect>
+        </c:if>
         <%@include file="WEB-INF/sessionCheck.jspf" %>
         <div class="section-two">
             <%@include file="WEB-INF/menu.jspf" %>

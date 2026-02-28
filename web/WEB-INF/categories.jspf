@@ -24,7 +24,7 @@
                         <th>Type ID</th>
                         <th>Category name</th>
                         <th>Memo</th>
-                <c:if test="${sessionScope.USER_INFORMATION.roleInSystem == 1}">
+                <c:if test="${sessionScope.USER_INFORMATION.roleInSystem == 2}">
                     <th>Actions</th>
                 </c:if>
                 </tr>
@@ -35,7 +35,7 @@
                             <td>${dto.typeId}</td>
                             <td>${dto.categoryName}</td>
                             <td>${dto.memo}</td>
-                    <c:if test="${sessionScope.USER_INFORMATION.roleInSystem == 1}">
+                    <c:if test="${sessionScope.USER_INFORMATION.roleInSystem == 2}">
                         <td>
                         <c:url var="deleteUrl" value="DispatchServlet">
                             <c:param name="btnAction" value="DeleteCategory"></c:param>

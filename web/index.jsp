@@ -26,6 +26,10 @@
     <body>
         <div class="section-two">
             <%@include file="WEB-INF/menu.jspf" %>
+            <div class="container">
+                <div style="color:red;font-weight: bold;font-size: 16px">${param.NOTIFICATION}</div>
+            </div>
+            
         </div>
         
     </body>

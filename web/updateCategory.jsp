@@ -23,6 +23,11 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
+        <c:if test="${sessionScope.USER_INFORMATION.roleInSystem != 2}">
+            <c:redirect url="index.jsp">
+                <c:param name="NOTIFICATION" value="Only manager can use this function"></c:param>
+            </c:redirect>
+        </c:if>
         <%@include file="WEB-INF/sessionCheck.jspf" %>
         <div class="section-two">
             <%@include file="WEB-INF/menu.jspf" %>

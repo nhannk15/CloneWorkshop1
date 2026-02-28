@@ -22,7 +22,7 @@
 
         <link rel="stylesheet" href="css/style.css">
     </head>
-    <body>       
+    <body>   
         <div class="section-two">
             <%@include file="WEB-INF/menu.jspf" %>
             <%@include file="WEB-INF/categories.jspf" %>
